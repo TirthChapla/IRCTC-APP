@@ -43,7 +43,7 @@ public class SecuurityConfig
         // and
         // others are private
         httpSecurity.csrf(e->e.disable()).authorizeHttpRequests( request ->{
-            request.requestMatchers("/auth/login")
+            request.requestMatchers("/auth/login","/swagger-ui/index.html")
                     .permitAll()
                     .anyRequest()
                     .authenticated();}

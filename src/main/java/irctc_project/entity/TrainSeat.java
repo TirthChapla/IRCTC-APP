@@ -1,26 +1,25 @@
 package irctc_project.entity;
 
+
 import irctc_project.enums.CoachType;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.math.BigDecimal;
-
 @Entity
-@Table(name = "train_seat")
+@Table(name = "train_seats")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@AllArgsConstructor
+//dibba
 public class TrainSeat
 {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long id;
-
+    private Long id;
     @ManyToOne
-    @JoinColumn(name = "trainSchedule_id")
+    @JoinColumn(name = "train_schedule_id")
     private TrainSchedule trainSchedule;
 
     @Enumerated(EnumType.STRING)
@@ -28,10 +27,26 @@ public class TrainSeat
 
     private Integer totalSeats;
 
-    private Integer avaiableSeats;
+    //42-2=40=0
+    private Integer availableSeats;
 
-    // nextToAssign + no of bookedSeat <= total seats
-    private Integer nextToAssign=1;
+    private Double price;
 
-    private BigDecimal price;
+    private Integer trainSeatOrder;
+
+    //1+2=3.... >42
+    private Integer seatNumberToAssign;
+
+    public boolean isChochFull() {
+        return availableSeats <= 0;
+    }
+
+    public boolean isSeatAvailable(int seatToBook) {
+        return seatToBook <= availableSeats;
+    }
+
+
+
+
+
 }

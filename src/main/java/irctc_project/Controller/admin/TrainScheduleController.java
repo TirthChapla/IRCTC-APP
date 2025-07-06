@@ -3,6 +3,7 @@ package irctc_project.Controller.admin;
 import irctc_project.Service.TrainScheduleService;
 import irctc_project.dto.TrainRouteDto;
 import irctc_project.dto.TrainScheduleDto;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class TrainScheduleController
 
 
     @PostMapping
-    public TrainScheduleDto  addTrainSchedules(@RequestBody TrainScheduleDto trainScheduleDto)
+    public TrainScheduleDto  addTrainSchedules( @Valid @RequestBody TrainScheduleDto trainScheduleDto)
     {
         /// 👉👉 I saved TrainSchedule to the DB
         TrainScheduleDto savedSedule = trainScheduleService.addTrainSchedule(trainScheduleDto);
