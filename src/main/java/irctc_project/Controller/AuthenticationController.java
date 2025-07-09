@@ -9,20 +9,20 @@ import irctc_project.security.JwtHelper;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+@EnableMethodSecurity
 public class AuthenticationController
 {
 
@@ -98,6 +98,13 @@ public class AuthenticationController
 
         return new ResponseEntity<>(savedUserDto,HttpStatus.CREATED);
 
+    }
+
+    @GetMapping("/role2")
+    @PreAuthorize("hasRole('USER')")
+    public String test()
+    {
+        return "Random URL Role Base Auth.";
     }
 
 

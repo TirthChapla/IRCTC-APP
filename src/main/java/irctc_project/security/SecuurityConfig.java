@@ -47,6 +47,8 @@ public class SecuurityConfig
         httpSecurity.csrf(e->e.disable()).authorizeHttpRequests( request ->{
             request.requestMatchers("/auth/login","/auth/register")
                     .permitAll()
+                    .requestMatchers("/admin/**").hasRole("ADMIN")
+                    .requestMatchers("/user/**").hasRole("USER")
                     .anyRequest()
                     .authenticated();}
         );
