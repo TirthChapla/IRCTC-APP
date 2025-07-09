@@ -21,12 +21,11 @@ public class Payment
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
 
-
     @OneToOne
     @JoinColumn(name = "booking_id")
     private Booking booking;
 
-    private BigDecimal amount;
+    private Double amount;
 
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;

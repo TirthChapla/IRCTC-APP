@@ -1,10 +1,11 @@
 package irctc_project.entity;
 
-import irctc_project.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -22,6 +23,7 @@ public class User
 
     private String name;
 
+    // our username = email
     private String email;
 
     private String password;
@@ -30,6 +32,8 @@ public class User
 
     private LocalDateTime createdAt;
 
-    private UserRole userRole = UserRole.ROLE_NORMAL;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Role> roles = new ArrayList<>();
+
 
 }

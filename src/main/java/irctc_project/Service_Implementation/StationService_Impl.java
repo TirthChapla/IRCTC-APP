@@ -5,6 +5,7 @@ import irctc_project.Repository.StationRepo;
 import irctc_project.Service.StationService;
 import irctc_project.dto.StationDto;
 import irctc_project.entity.Station;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -34,7 +35,7 @@ public class StationService_Impl implements StationService {
 
 
     @Override
-    public StationDto createStation(StationDto stationDto)
+    public StationDto createStation(@Valid StationDto stationDto)
     {
 
         //👉 StationDto to Station

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "train_route")
+@Table(name = "booking")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -40,7 +40,7 @@ public class Booking
 
     private LocalDate journeyDate;
 
-    private BigDecimal totalFare;
+    private Double totalFare;
 
     @Enumerated(EnumType.STRING)
     private BookingStatus bookingStatus;

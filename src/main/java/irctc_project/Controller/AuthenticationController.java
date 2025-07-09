@@ -1,9 +1,12 @@
 package irctc_project.Controller;
 
+import irctc_project.Service.UserService;
+import irctc_project.dto.UserDto;
 import irctc_project.record.ErrorResponse;
 import irctc_project.record.JwtResponse;
 import irctc_project.record.LoginRequest;
 import irctc_project.security.JwtHelper;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,15 +29,18 @@ public class AuthenticationController
     private AuthenticationManager authenticationManager;
     private UserDetailsService userDetailsService;
     private JwtHelper jwtHelper;
+    private UserService userService;
 
     //Construction Autowired
     public AuthenticationController(AuthenticationManager authenticationManager,
                                     UserDetailsService userDetailsService,
-                                    JwtHelper jwtHelper)
+                                    JwtHelper jwtHelper,
+                                    UserService userService)
     {
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
         this.jwtHelper = jwtHelper;
+        this.userService = userService;
     }
 
     @PostMapping("/login")
@@ -65,6 +71,7 @@ public class AuthenticationController
             JwtResponse jwtResponse = new JwtResponse(
                     token,
                     loginRequest.username()
+
             );
 
             return new ResponseEntity<>(jwtResponse , HttpStatus.OK);
@@ -81,5 +88,18 @@ public class AuthenticationController
             return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
         }
     }
+
+
+    @PostMapping("/register")
+    public ResponseEntity<?> registerRequest(
+         @Valid @RequestBody UserDto userDto)
+    {
+        UserDto savedUserDto = userService.registerUser(userDto);
+
+        return new ResponseEntity<>(savedUserDto,HttpStatus.CREATED);
+
+    }
+
+
 
 }
